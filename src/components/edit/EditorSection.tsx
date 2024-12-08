@@ -29,7 +29,7 @@ const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
         /*
         * 현재 에디터에서 이미지 업로드 할때 브라우저 내장 함수인 crypto.randomUUID()를 사용
         * SSL이 적용된 페이지 또는 localhost의 경우 브라우저에서 crypto.randomUUID()를 정상적으로 호출 가능
-        * 하지만 내부용으로 배포 예정인 10.10.20.187 서버는 SSL 적용이 어려운 상태
+        * 하지만 내부용으로 배포 예정인 ???? 서버는 SSL 적용이 어려운 상태
         * 따라서 http 환경에서 crypto.randomUUID 사용을 위한 함수 재선언
         *
         * */

@@ -16,6 +16,7 @@ import {IModalMutation} from "@/types/interfaces/modal-interface";
 import {modalMutationAtom} from "@/atoms/modalMutationAtom";
 
 import styles from './BoardOptionPopup.module.scss';
+import Overlay from "@/components/overlay/Overlay";
 
 // 게시물 삭제 함수
 async function serverAPI_DeletePost(param: IParam_DeletePost): Promise<AxiosResponse<IAPIResponse<IResult_DeletePost>>> {
@@ -29,7 +30,7 @@ const BoardOptionPopup = () => {
     const popupController = usePopup();
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     const onClick = () => actionAndNavigate.actionAndNavigate(`${baseUrl}/${pathname}/edit`);
-    const { slug } = useParams();
+    const {slug} = useParams();
     const [, setRcModalMutation] = useRecoilState<IModalMutation>(modalMutationAtom);
 
     useEffect(() => {
@@ -38,7 +39,7 @@ const BoardOptionPopup = () => {
             if (targetElement) {
                 const rect = targetElement.getBoundingClientRect();
 
-                if(targetRef.current) {
+                if (targetRef.current) {
                     const element = targetRef.current as HTMLDivElement;
                     const thisRect = element.getBoundingClientRect();
                     popupController.openPopup(EPopup.BoardOption, {
@@ -47,8 +48,7 @@ const BoardOptionPopup = () => {
                             left: rect.left - thisRect.width + 30
                         }
                     });
-                }
-                else {
+                } else {
                     popupController.openPopup(EPopup.BoardOption);
                 }
             }
@@ -68,8 +68,7 @@ const BoardOptionPopup = () => {
         const handleClickOutside = (event: MouseEvent) => {
             if (targetRef.current) {
                 const element = targetRef.current as HTMLDivElement;
-                if(!element.contains(event.target as Node))
-                {
+                if (!element.contains(event.target as Node)) {
                     popupController.closePopup(EPopup.BoardOption);
                 }
             }
@@ -86,6 +85,7 @@ const BoardOptionPopup = () => {
 
     // 게시물 삭제 핸들러
     const handleDeletePost = () => {
+        popupController.closeAll();
         setRcModalMutation(() => ({
             resultMutation: deletePost,
             message: "삭제",
@@ -133,18 +133,20 @@ const BoardOptionPopup = () => {
         <>
             {
                 popupController.isPopupOpen(EPopup.BoardOption) &&
-                <div ref={targetRef} className={styles.baseContainer} style={{
-                    top: popupController.getPopupData(EPopup.BoardOption).position.top,
-                    left: popupController.getPopupData(EPopup.BoardOption).position.left
-                }}>
-                    <button className={styles.itemContainer} onClick={onClick}>
-                        Edit Board
-                    </button>
-                    <div className={styles.line}/>
-                    <button className={`${styles.itemContainer} ${styles.warn}`} onClick={handleDeletePost}>
-                        Delete Board
-                    </button>
-                </div>
+                <Overlay>
+                    <div ref={targetRef} className={styles.baseContainer} style={{
+                        top: popupController.getPopupData(EPopup.BoardOption).position.top,
+                        left: popupController.getPopupData(EPopup.BoardOption).position.left
+                    }}>
+                        <button className={styles.itemContainer} onClick={onClick}>
+                            Edit Board
+                        </button>
+                        <div className={styles.line}/>
+                        <button className={`${styles.itemContainer} ${styles.warn}`} onClick={handleDeletePost}>
+                            Delete Board
+                        </button>
+                    </div>
+                </Overlay>
             }
         </>
     )

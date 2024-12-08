@@ -98,9 +98,9 @@ const Icons = ({iconType, fill, width = 16, height = 16, styleTag = ''}: Props):
             {
                 EIcon.Option === iconType &&
                 <g transform="translate(0, 12.5)">
-                    <circle cx="7" cy="3" r="3" fill={fill}/>
-                    <circle cx="17" cy="3" r="3" fill={fill}/>
-                    <circle cx="27" cy="3" r="3" fill={fill}/>
+                    <circle cx="7" cy="3" r="2.5" fill={fill}/>
+                    <circle cx="15" cy="3" r="2.5" fill={fill}/>
+                    <circle cx="23" cy="3" r="2.5" fill={fill}/>
                 </g>
             }
             {

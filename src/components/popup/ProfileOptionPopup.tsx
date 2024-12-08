@@ -14,6 +14,7 @@ import useActionAndNavigate from "@/hooks/useActionAndNavigate";
 import axiosServer from "@/libs/axiosServer";
 
 import styles from "./ProfileOptionPopup.module.scss";
+import Overlay from "@/components/overlay/Overlay";
 
 async function serverAPI_signOut(): Promise<AxiosResponse<IAPIResponse<IUser>>> {
     return await axiosServer.post('/private/post/auth/signOut');
@@ -94,8 +95,7 @@ const ProfileOptionPopup = () => {
         const handleClickOutside = (event: MouseEvent) => {
             if (targetRef.current) {
                 const element = targetRef.current as HTMLDivElement;
-                if(!element.contains(event.target as Node))
-                {
+                if (!element.contains(event.target as Node)) {
                     popupController.closePopup(EPopup.ProfileOption);
                 }
             }
@@ -112,22 +112,25 @@ const ProfileOptionPopup = () => {
 
     return (
         <>
-            {popupController.isPopupOpen(EPopup.ProfileOption) &&
-                <div ref={targetRef} className={styles.baseContainer} style={{
-                    top: popupController.getPopupData(EPopup.ProfileOption).position.top,
-                    left: popupController.getPopupData(EPopup.ProfileOption).position.left
-                }}>
-                    <button className={styles.itemContainer} onClick={editProfile}>
-                        Profile
-                    </button>
-                    <button className={styles.itemContainer} onClick={onClick}>
-                        Posts
-                    </button>
-                    <div className={styles.line}/>
-                    <button className={styles.itemContainer} onClick={handleSignOut}>
-                        Sign Out
-                    </button>
-                </div>
+            {
+                popupController.isPopupOpen(EPopup.ProfileOption) &&
+                <Overlay>
+                    <div ref={targetRef} className={styles.baseContainer} style={{
+                        top: popupController.getPopupData(EPopup.ProfileOption).position.top,
+                        left: popupController.getPopupData(EPopup.ProfileOption).position.left
+                    }}>
+                        <button className={styles.itemContainer} onClick={editProfile}>
+                            Profile
+                        </button>
+                        <button className={styles.itemContainer} onClick={onClick}>
+                            Posts
+                        </button>
+                        <div className={styles.line}/>
+                        <button className={styles.itemContainer} onClick={handleSignOut}>
+                            Sign Out
+                        </button>
+                    </div>
+                </Overlay>
             }
         </>
     )

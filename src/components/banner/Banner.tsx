@@ -70,10 +70,16 @@ const Banner = (props: IBanner) => {
                             <div className={styles.date}>
                                 {props.dateModified}
                             </div>
-                            {writerInfo.profilePicPath ? <Icons iconType={EIcon.Avatar} width={32} height={32} fill={IMG.DefaultPath + writerInfo.profilePicPath} styleTag={styles.avatar}/> : <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'} />}
                             {
                                 rcUser.userId === props.author &&
                                 <BoardOptionButton/>
+                            }
+                            {
+                                writerInfo.profilePicPath ?
+                                    <Icons iconType={EIcon.Avatar} width={32} height={32}
+                                           fill={IMG.DefaultPath + writerInfo.profilePicPath}
+                                           styleTag={styles.avatar}/> :
+                                    <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>
                             }
                         </div>
                     }

@@ -17,6 +17,7 @@
   line-height: 1.5;
   padding: 10px;
   width: 100%;
+  min-height: 100px;
   transition: max-height 0.3s ease;
   word-wrap: break-word;
   border: 2px solid transparent;
@@ -67,7 +68,8 @@
 }
 
 .toggleButton {
-  padding: 5px 20px;
+  width: 70px;
+  padding: 5px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -85,3 +87,12 @@
 .toggleButton:focus {
   outline: none;
 }
+
+.gradientText {
+  background: linear-gradient(to bottom right, #0060fd, #03a9e6, #0060fd); /* 그라데이션 색상 */
+  -webkit-background-clip: text; /* Webkit 기반 브라우저(Chrome, Safari)에서 사용 */
+  color: transparent; /* 텍스트 색상을 투명하게 설정 */
+  font-size: 18px; /* 텍스트 크기 설정 */
+  font-weight: bold; /* 텍스트 두께 */
+}
+

@@ -31,7 +31,7 @@ const NotifyPopup = () => {
                             <Blank type={EBlank.Column} size={20}/>
                             <div className={styles.body_buttonContainer}>
                                 <TextButton controller={{onClick: closePopup, label: "Ok"}} styles={{
-                                    size: EButtonSize.Medium,
+                                    size: EButtonSize.Large,
                                     shape: EButtonShape.Round,
                                     type: EButtonType.Stroke
                                 }}/>

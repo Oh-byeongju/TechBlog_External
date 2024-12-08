@@ -15,7 +15,7 @@ const TagList = ({tags}: Props) => {
                 tags.map((tag) => (
                     <>
                         <Tag text={tag}/>
-                        <Blank type={EBlank.Row} size={20}/>
+                        <Blank type={EBlank.Row} size={10}/>
                     </>
                 ))
             }
