@@ -6,5 +6,5 @@ export const BREAKPOINT = {
 } as const;
 
 export const IMG = {
-    DefaultPath: `${process.env.NEXT_PUBLIC_SVR_BASE_URL}/public/img`,
+    DefaultPath: `${process.env.NEXT_PUBLIC_CLI_BASE_URL}`,
 } as const;

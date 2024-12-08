@@ -14,6 +14,7 @@ import {IAPIResponse} from "@/types/interfaces/common-interface";
 import axiosServer from "@/libs/axiosServer";
 import {IMG} from "@/contants/common";
 import {writerAtom} from "@/atoms/writerAtom";
+import axiosClient from "@/libs/axiosClient";
 
 import Icons from "@/components/Icons";
 import styles from './WriterInfo.module.scss';
@@ -22,8 +23,8 @@ interface Props {
     author: string;
 }
 
-async function serverAPI_userInfo(param: IParam_UserInfo): Promise<AxiosResponse<IAPIResponse<IResult_UserInfo>>> {
-    return await axiosServer.get('/public/get/user/info', { params: param });
+async function clientAPI_userInfo(param: IParam_UserInfo): Promise<AxiosResponse<IResult_UserInfo>> {
+    return await axiosClient.get('/api/getUserInfo', { params: param });
 }
 
 const WriterInfo = ({ author }: Props) => {
@@ -31,10 +32,10 @@ const WriterInfo = ({ author }: Props) => {
 
     const result_UserInfo = useQuery(
         ["result_UserInfo", author],
-        () => serverAPI_userInfo({ userId: author }).then(res => res),
+        () => clientAPI_userInfo({ userId: author }).then(res => res),
         {
             enabled: false,
-            onSuccess: (data) => setUserInfo(data?.data.content),
+            onSuccess: (data) => setUserInfo(data.data)
         }
     )
 
@@ -49,8 +50,8 @@ const WriterInfo = ({ author }: Props) => {
                         <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
                     ) : result_UserInfo.isError ? (
                         <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
-                    ) :  result_UserInfo.data?.data.content.profilePicPath ? (
-                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + result_UserInfo.data?.data.content.profilePicPath}/>
+                    ) :  result_UserInfo.data?.data.profilePicPath ? (
+                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + result_UserInfo.data?.data.profilePicPath}/>
                     ) :  <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
                 }
             </div>
@@ -65,10 +66,10 @@ const WriterInfo = ({ author }: Props) => {
                 ) : (
                     <>
                         <div className={styles.username}>
-                            {result_UserInfo.data?.data.content.userName ? result_UserInfo.data?.data.content.userName : 'user'}
+                            {result_UserInfo.data?.data.userName ? result_UserInfo.data?.data.userName : 'user'}
                         </div>
                         <div className={styles.desc}>
-                            {result_UserInfo.data?.data.content.profileCont ? result_UserInfo.data?.data.content.profileCont : 'desc'}
+                            {result_UserInfo.data?.data.profileCont ? result_UserInfo.data?.data.profileCont : 'desc'}
                         </div>
                     </>
                 )}

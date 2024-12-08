@@ -41,7 +41,8 @@ export default function RootLayout({children}: Props) {
             <RecoilRootWrapper>
                 <MainContainer>
                     {/* eslint-disable-next-line react/jsx-key */}
-                    <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>
+                    {/*<HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[<HeaderAction/>, <HeaderProfile/>]}/>*/}
+                    <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]}/>
                     {children}
                     <FooterBase/>
                     <ModalMutation/>

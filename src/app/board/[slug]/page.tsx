@@ -71,7 +71,7 @@ const Post = (props: Props) => {
                                 <EditorSection post={post} readOnly={true}/>
                                 <WriterInfo author={post.author}/>
                                 <TagList tags={post.keywords}/>
-                                <ActivityBox slug={post.slug}/>
+                                {/*<ActivityBox slug={post.slug}/>*/}
                             </ContentsContainer>
                         </BodyContainer>
                     </>
