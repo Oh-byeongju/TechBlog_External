@@ -1,11 +1,12 @@
 ---
-title: "Learn How to Pre-render Pages Using Static Generation with Next.js"
+title: "Preview Mode for Static Generation"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
-thumbnail: "/assets/blog/hello-world/cover.jpg"
-keywords: "Dynamic, Routing, Static, 111"
-author: "123@123.com"
+thumbnail: "/assets/blog/preview/cover.jpg"
+keywords: "Dynamic, Routing, Static, @@"
+author: "123123@123.com"
 datePublished: "2020-03-16 05:35:07"
 dateModified: "2020-03-16 05:35:07"
+sort: "3"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus. Praesent elementum facilisis leo vel fringilla. Congue mauris rhoncus aenean vel. Egestas sed tempus urna et pharetra pharetra massa massa ultricies.

@@ -17,6 +17,7 @@ export interface IPostData {
     datePublished: string;
     dateModified: string;
     content: string;
+    sort?: string;
 }
 
 // 인기 게시물 조회
