@@ -1,5 +1,3 @@
-'use client';
-
 import "@/styles/globals.scss";
 import React from "react";
 
@@ -7,7 +5,7 @@ import RecoilRootWrapper from "@/providers/RecoilWrapper";
 import ReactQueryWrapper from "@/providers/ReactQueryWrapper";
 
 import HeaderBase from "@/components/header/HeaderBase";
-import {HeaderAction, HeaderLogo, HeaderProfile, HeaderSearch} from "@/components/header/HeaderItem";
+import {HeaderLogo, HeaderSearch} from "@/components/header/HeaderItem";
 import MainContainer from "@/components/containers/MainContainer";
 import ProfileOptionPopup from "@/components/popup/ProfileOptionPopup";
 import ConfirmPopup from "@/components/popup/ConfirmPopup";
@@ -15,10 +13,8 @@ import NotifyPopup from "@/components/popup/NotifyPopup";
 import EditProfilePopup from "@/components/popup/EditProfilePopup";
 import SignInPopup from "@/components/popup/SignInPopup";
 import SignUpPopup from "@/components/popup/SignUpPopup";
-import BoardOptionPopup from "@/components/popup/BoardOptionPopup";
 import SearchPopup from "@/components/popup/SearchPopup";
 import FooterBase from "@/components/footer/FooterBase";
-import ModalMutation from "@/components/modal/ModalMutation";
 
 interface Props {
     children: React.ReactNode;
@@ -46,8 +42,6 @@ export default function RootLayout({children}: Props) {
                     <HeaderBase left={[<HeaderLogo/>, <HeaderSearch/>]} right={[]}/>
                     {children}
                     <FooterBase/>
-                    <ModalMutation/>
-                    <BoardOptionPopup/>
                     <ProfileOptionPopup/>
                     <EditProfilePopup/>
                     <SignInPopup/>

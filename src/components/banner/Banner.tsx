@@ -25,7 +25,6 @@ interface IBanner {
 }
 
 const Banner = (props: IBanner) => {
-    const [rcUser, setRcUser] = useRecoilState<IUser>(userAtom);
     const [rcBanner, setRcBanner] = useRecoilState<IBannerAtom>(bannerAtom);
     const [writerInfo, setWriterInfo] = useRecoilState(writerAtom);
     const [backgroundImage, setBackgroundImage] = useState('');
@@ -70,10 +69,6 @@ const Banner = (props: IBanner) => {
                             <div className={styles.date}>
                                 {props.dateModified}
                             </div>
-                            {
-                                rcUser.userId === props.author &&
-                                <BoardOptionButton/>
-                            }
                             {
                                 writerInfo.profilePicPath ?
                                     <Icons iconType={EIcon.Avatar} width={32} height={32}
