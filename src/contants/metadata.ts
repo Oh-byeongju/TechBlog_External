@@ -8,7 +8,7 @@ export const META = {
         '기술블로그',
         'TechBlog',
     ],
-    baseUrl: 'https://sjtb-fe.vercel.app',
-    pageUrl: '',
+    baseUrl: 'https://sjtb.vercel.app',
+    pageUrl: 'https://sjtb.vercel.app',
     ogImage: '/images/banner.jpg',
 } as const;
