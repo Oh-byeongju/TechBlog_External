@@ -36,8 +36,6 @@ const SearchPost = ({keyword}: { keyword: string }) => {
         result_searchAPI.refetch();
     }, [keyword])
 
-    console.log("keyword : " + keyword)
-
     return (
         <div className={styles.baseContainer}>
             <Label text={'검색 결과'}/>

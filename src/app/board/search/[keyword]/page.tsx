@@ -1,5 +1,3 @@
-'use client';
-
 import {EBannerType, EBlank} from "@/types/enums/common-enum";
 
 import PageContainer from "@/components/containers/PageContainer";
