@@ -1,21 +1,19 @@
 'use client';
 
-import {useRecoilState, useResetRecoilState} from "recoil";
+import {useRecoilState} from "recoil";
 import {useQuery} from "react-query";
 import {useEffect, useState} from "react";
 
-import {IBannerAtom, IUser} from "@/types/interfaces/common-interface";
-import {userAtom} from "@/atoms/userAtom";
+import {IBannerAtom} from "@/types/interfaces/common-interface";
 import {EBannerType, EIcon} from "@/types/enums/common-enum";
 import {EQuerykey} from "@/types/enums/querykey-enum";
 import axiosClient from "@/libs/axiosClient";
 import {bannerAtom} from "@/atoms/bannerAtom";
-import {writerAtom} from "@/atoms/writerAtom";
 import {IMG} from "@/contants/common";
+import {profilePicPath} from "@/types/enums/user-enum";
 
 import styles from './Banner.module.scss';
 import Icons from "@/components/Icons";
-import BoardOptionButton from "@/components/button/BoardOptionButton";
 
 interface IBanner {
     type: EBannerType,
@@ -26,8 +24,8 @@ interface IBanner {
 
 const Banner = (props: IBanner) => {
     const [rcBanner, setRcBanner] = useRecoilState<IBannerAtom>(bannerAtom);
-    const [writerInfo, setWriterInfo] = useRecoilState(writerAtom);
     const [backgroundImage, setBackgroundImage] = useState('');
+    const profilePicture = profilePicPath[props.author as keyof typeof profilePicPath];
 
     const resUpdateImage = useQuery(
         [EQuerykey.UPDATE_IMAGE],
@@ -70,9 +68,9 @@ const Banner = (props: IBanner) => {
                                 {props.dateModified}
                             </div>
                             {
-                                writerInfo.profilePicPath ?
+                                profilePicture ?
                                     <Icons iconType={EIcon.Avatar} width={32} height={32}
-                                           fill={IMG.DefaultPath + writerInfo.profilePicPath}
+                                           fill={IMG.DefaultPath + profilePicture}
                                            styleTag={styles.avatar}/> :
                                     <Icons iconType={EIcon.Avatar} width={32} height={32} fill={'#C0C0C0'}/>
                             }
