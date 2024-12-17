@@ -3,7 +3,7 @@ title: "Preview Mode for Static Generation"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
 thumbnail: "/assets/blog/preview/cover.jpg"
 keywords: "Dynamic, Routing, Static, @@"
-author: "123123@123.com"
+author: "123@123.com"
 datePublished: "2020-03-16 05:35:07"
 dateModified: "2020-03-16 05:35:07"
 ---
