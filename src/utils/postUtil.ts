@@ -1,6 +1,7 @@
 import {join} from "path";
 import fs from "fs";
 import matter from "gray-matter";
+import path from "node:path";
 
 import {IPostData} from "@/types/interfaces/post-interface";
 
@@ -13,6 +14,12 @@ export function getPostSlugs(): string[] {
 
 export function getPopPostSlugs(): string[] {
     return fs.readdirSync(popPostsDirectory);
+}
+
+// _post에 있는 md 파일 파일명 추출 (SSG 사용)
+export function getParamSlugs(): string[] {
+    const fileNames = fs.readdirSync(postsDirectory);  // 디렉토리 내의 파일 목록을 읽어옴
+    return fileNames.map(file => path.basename(file, path.extname(file)));  // 파일명만 추출하여 리턴
 }
 
 export function getPostBySlug(slug: string): IPostData | undefined {

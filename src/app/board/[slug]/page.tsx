@@ -3,7 +3,7 @@ import {redirect} from "next/navigation";
 
 import {EBannerType, EBlank} from '@/types/enums/common-enum';
 import {IPostData} from "@/types/interfaces/post-interface";
-import {getPostBySlug} from "@/utils/postUtil";
+import {getParamSlugs, getPostBySlug} from "@/utils/postUtil";
 import {IMetadata} from "@/types/interfaces/metadata-interface";
 import {META} from "@/contants/metadata";
 import {getMetadata} from "@/seo/metadata/getMetadata";
@@ -37,24 +37,12 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     };
     return getMetadata(metadata);
 }
+export async function generateStaticParams() {
+    return getParamSlugs();
+}
 
-// export async function generateStaticParams() {
-//     const slugs = getAllPosts();
-//     return slugs.map((slug) => ({
-//       slug,
-//     }));
-//
-//     /// 이부분이 파일 다 읽어야하는 부분
-//     const data = ['dynamic-routing', 'hello-world', 'pr2eview', 'preview'];
-//
-//     /// 게시물 관련을 SSG 와 ISR로 구현한다고 하면,,,,,
-//     //// 게시물 crud를 했을 때 md 파일을 직접 사용하는 애들은 모두 갱신이 필요.
-//
-//     return data;
-//   }
-
-// 할일 ldjson 추가하기
-// generateStaticParams 체크하기
+// 할일 ldjson 추가하기 --> Script(next 전용) 태그 이용해야함
+// 스크롤 제어 생각해보기     https://velog.io/@seesaw/Next.js%EC%97%90%EC%84%9C-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%9C%84%EC%B9%98-%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-Scroll-Restoration
 
 const Post = (props: Props) => {
     const post: IPostData | undefined = getPostBySlug(props.params.slug);
