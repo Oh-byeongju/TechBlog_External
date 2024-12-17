@@ -1,13 +1,12 @@
-'use client';
-
-import {useEffect, useState} from 'react';
-import {useQuery} from "react-query";
-import {AxiosResponse} from "axios";
+import {Metadata} from "next";
+import {redirect} from "next/navigation";
 
 import {EBannerType, EBlank} from '@/types/enums/common-enum';
 import {IPostData} from "@/types/interfaces/post-interface";
-import axiosClient from "@/libs/axiosClient";
-import useActionAndNavigate from "@/hooks/useActionAndNavigate";
+import {getPostBySlug} from "@/utils/postUtil";
+import {IMetadata} from "@/types/interfaces/metadata-interface";
+import {META} from "@/contants/metadata";
+import {getMetadata} from "@/seo/metadata/getMetadata";
 
 import Blank from '@/components/blank/Blank';
 import PageContainer from '@/components/containers/PageContainer';
@@ -16,10 +15,8 @@ import WriterInfo from '@/components/read/WriterInfo';
 import ContentsContainer from '@/components/containers/ContentsContainer';
 import BodyContainer from '@/components/containers/BodyContainer';
 import TagList from '@/components/read/TagList';
-import ActivityBox from '@/components/read/ActivityBox';
 import EditorSection from "@/components/edit/EditorSection";
 import Summary from "@/components/read/Summary";
-
 
 interface Props {
     params: {
@@ -27,33 +24,44 @@ interface Props {
     };
 }
 
-const getPostBySlugAPI = (slug: string): Promise<AxiosResponse<IPostData>> => {
-    return axiosClient.get('/api/getPostBySlug', {
-        params: {slug: slug}
-    });
-};
+export async function generateMetadata({params}: Props): Promise<Metadata> {
+    const post = getPostBySlug(params.slug)
+    if (!post) return {};
+    const metadata: IMetadata = {
+        title: `${post.title} - 세정아이앤씨 기술 블로그`,
+        description: post.description,
+        keywords: post.keywords,
+        baseUrl: META.baseUrl,
+        pageUrl: `/board/${params.slug}`,
+        ogImage: post.thumbnail
+    };
+    return getMetadata(metadata);
+}
+
+// export async function generateStaticParams() {
+//     const slugs = getAllPosts();
+//     return slugs.map((slug) => ({
+//       slug,
+//     }));
+//
+//     /// 이부분이 파일 다 읽어야하는 부분
+//     const data = ['dynamic-routing', 'hello-world', 'pr2eview', 'preview'];
+//
+//     /// 게시물 관련을 SSG 와 ISR로 구현한다고 하면,,,,,
+//     //// 게시물 crud를 했을 때 md 파일을 직접 사용하는 애들은 모두 갱신이 필요.
+//
+//     return data;
+//   }
+
+// 할일 ldjson 추가하기
+// generateStaticParams 체크하기
 
 const Post = (props: Props) => {
-    const [post, setPost] = useState<IPostData | undefined>();
-    const [content, setContent] = useState<string>('');
-    const actionAndNavigate = useActionAndNavigate();
+    const post: IPostData | undefined = getPostBySlug(props.params.slug);
 
-    const result_getPostBySlugAPI = useQuery(
-        ["result_getPostBySlugAPI"],
-        () => getPostBySlugAPI(props.params.slug),
-        {
-            onSuccess: (data) => {
-                setPost(data.data);
-            },
-            onError: () => {
-                actionAndNavigate.actionAndNavigate('/');
-            }
-        }
-    );
-
-    useEffect(() => {
-        result_getPostBySlugAPI.refetch();
-    }, [])
+    if (!post) {
+        redirect('/');
+    }
 
     return (
         <PageContainer>

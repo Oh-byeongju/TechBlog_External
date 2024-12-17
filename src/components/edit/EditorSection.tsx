@@ -1,16 +1,17 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from "react";
-import { useRecoilState } from "recoil";
+import React, {useEffect, useRef, useState} from "react";
+import {useRecoilState} from "recoil";
 
 import "@/editor/theme/common/style.css";
 import "@/editor/theme/frame/style.css";
-import { editorAtom } from "@/atoms/editorAtom";
-import { darkModeAtom } from "@/atoms/darkModeAtom";
+import {darkModeAtom} from "@/atoms/darkModeAtom";
 import {Crepe, CrepeFeature} from "@/editor";
 import {IPostData} from "@/types/interfaces/post-interface";
+import {EBlank} from "@/types/enums/common-enum";
 
 import styles from "@/components/edit/EditorSection.module.scss";
+import Blank from "@/components/blank/Blank";
 
 interface EditorSectionProps {
     post?: IPostData;
@@ -19,29 +20,13 @@ interface EditorSectionProps {
 
 const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
     const localCrepeRef = useRef<Crepe | null>(null);
-    const [crepeRef, setCrepeRef] = useRecoilState(editorAtom);
     const [rcDarkMode] = useRecoilState(darkModeAtom);
     const [editorClassName, setEditorClassName] = useState(styles.baseContainer);
+    const [showBlank, setShowBlank] = useState(true);
     const editorSectionRef = useRef<HTMLDivElement | null>(null);
 
     // 에디터 생성 useEffect
     useEffect(() => {
-        /*
-        * 현재 에디터에서 이미지 업로드 할때 브라우저 내장 함수인 crypto.randomUUID()를 사용
-        * SSL이 적용된 페이지 또는 localhost의 경우 브라우저에서 crypto.randomUUID()를 정상적으로 호출 가능
-        * 하지만 내부용으로 배포 예정인 ???? 서버는 SSL 적용이 어려운 상태
-        * 따라서 http 환경에서 crypto.randomUUID 사용을 위한 함수 재선언
-        *
-        * */
-        if (window.location.hostname === `${process.env.NEXT_PUBLIC_NO_HTTPS_URL}`) {
-            crypto.randomUUID = function (): `${string}-${string}-${string}-${string}-${string}` {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    const r = Math.random() * 16 | 0;
-                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                }) as `${string}-${string}-${string}-${string}-${string}`; // 타입 단언 추가
-            };
-        }
         const rootElement = document.getElementById('editorSection');
 
         if (rootElement && !localCrepeRef.current) {
@@ -54,8 +39,8 @@ const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
                 },
             });
             localCrepeRef.current.create().then(() => {
-                setCrepeRef(localCrepeRef.current); // Recoil 상태 업데이트
                 localCrepeRef.current?.setReadonly(readOnly); // readOnly 설정
+                setShowBlank(false);
 
                 if (editorSectionRef.current) {
                     const walker = document.createTreeWalker(
@@ -85,11 +70,14 @@ const EditorSection = ({ post, readOnly = false }: EditorSectionProps) => {
     }, [rcDarkMode, readOnly]);
 
     return (
-        <div
-            id="editorSection"
-            className={editorClassName}
-            ref={editorSectionRef}
-        />
+        <>
+            {showBlank && <Blank type={EBlank.Column} size={150}/>}
+            <div
+                id="editorSection"
+                className={editorClassName}
+                ref={editorSectionRef}
+            />
+        </>
     );
 };
 
