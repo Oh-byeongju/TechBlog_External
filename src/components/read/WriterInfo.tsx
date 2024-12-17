@@ -1,20 +1,6 @@
-'use client'
-
-import {AxiosResponse} from "axios";
-import {useEffect} from "react";
-import {useQuery} from "react-query";
-import {useRecoilState} from "recoil";
-
 import {EIcon} from "@/types/enums/common-enum";
-import {
-    IParam_UserInfo,
-    IResult_UserInfo
-} from "@/types/interfaces/user-interface";
-import {IAPIResponse} from "@/types/interfaces/common-interface";
-import axiosServer from "@/libs/axiosServer";
 import {IMG} from "@/contants/common";
-import {writerAtom} from "@/atoms/writerAtom";
-import axiosClient from "@/libs/axiosClient";
+import {profileCont, profilePicPath, userName} from "@/types/enums/user-enum";
 
 import Icons from "@/components/Icons";
 import styles from './WriterInfo.module.scss';
@@ -23,56 +9,26 @@ interface Props {
     author: string;
 }
 
-async function clientAPI_userInfo(param: IParam_UserInfo): Promise<AxiosResponse<IResult_UserInfo>> {
-    return await axiosClient.get('/api/getUserInfo', { params: param });
-}
-
 const WriterInfo = ({ author }: Props) => {
-    const [, setUserInfo] = useRecoilState(writerAtom);
-
-    const result_UserInfo = useQuery(
-        ["result_UserInfo", author],
-        () => clientAPI_userInfo({ userId: author }).then(res => res),
-        {
-            enabled: false,
-            onSuccess: (data) => setUserInfo(data.data)
-        }
-    )
-
-    useEffect(() => {
-        result_UserInfo.refetch();
-    }, [author]);
-
+    const name = userName[author as keyof typeof userName];
+    const profileContent = profileCont[author as keyof typeof profileCont];
+    const profilePicture = profilePicPath[author as keyof typeof profilePicPath];
+    
     return (
         <div className={styles.baseContainer}>
             <div className={styles.avatarContainer}>
-                {result_UserInfo.isLoading ? (
-                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
-                    ) : result_UserInfo.isError ? (
-                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
-                    ) :  result_UserInfo.data?.data.profilePicPath ? (
-                        <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + result_UserInfo.data?.data.profilePicPath}/>
-                    ) :  <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
+                {profilePicture ?
+                    <Icons iconType={EIcon.Avatar} width={62} height={62} fill={IMG.DefaultPath + profilePicture}/> :
+                    <Icons iconType={EIcon.Avatar} width={62} height={62} fill={'#C0C0C0'}/>
                 }
             </div>
             <div className={styles.infoContainer}>
-                {result_UserInfo.isLoading ? (
-                    <div></div>
-                ) : result_UserInfo.isError ? (
-                    <>
-                        <div className={styles.username}>user</div>
-                        <div className={styles.desc}>desc</div>
-                    </>
-                ) : (
-                    <>
-                        <div className={styles.username}>
-                            {result_UserInfo.data?.data.userName ? result_UserInfo.data?.data.userName : 'user'}
-                        </div>
-                        <div className={styles.desc}>
-                            {result_UserInfo.data?.data.profileCont ? result_UserInfo.data?.data.profileCont : 'desc'}
-                        </div>
-                    </>
-                )}
+                <div className={styles.username}>
+                    {name ? name : 'user'}
+                </div>
+                <div className={styles.desc}>
+                    {profileContent ? profileContent : 'desc'}
+                </div>
             </div>
         </div>
     )
