@@ -1,3 +1,3 @@
 ## Deploy on Vercel
 
-https://sjtb-fe.vercel.app/
+https://sjtb.vercel.app/
