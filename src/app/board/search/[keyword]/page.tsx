@@ -34,7 +34,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
         ],
         baseUrl: process.env.NEXT_PUBLIC_CLI_BASE_URL + `/board/search/${decodedKeyword}`,
         pageUrl: process.env.NEXT_PUBLIC_CLI_BASE_URL + `/board/search/${decodedKeyword}`,
-        ogImage: '/images/banner.jpg',
+        ogImage: process.env.NEXT_PUBLIC_CLI_BASE_URL + '/images/banner.jpg',
     }
 
     return getMetadata(searchMeta);
