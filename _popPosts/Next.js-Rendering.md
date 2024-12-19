@@ -5,7 +5,7 @@ description: >+
   Server-Side Rendering(SSR), Incremental Static Regeneration(ISR), Static Site
   Generation(SSG) 각각의 장단점을 비교하고, Next.js의 하이브리드 렌더링 방식과 하이드레이션 개념을 설명합니다. 각 렌더링
   방식의 특성과 적절한 사용 사례를 제시하여 개발자가 선택할 수 있도록 안내합니다. 
-thumbnail: "/assets/blog/Next_js-Rendering/NextJs.jpg"
+thumbnail: "/assets/blog/NextJs-Rendering/NextJs.jpg"
 keywords: >-
   ReactJS, CSR, SSR, ISR, SSG, NextJS, HybridRendering, Hydration,
   WebDevelopment, FrontendDevelopment
@@ -16,7 +16,7 @@ sort: "2"
 ---
 
 
-![1.00](/assets/blog/Next_js-Rendering/NextJs.jpg)
+![1.00](/assets/blog/NextJs-Rendering/NextJs.jpg)
 
 &nbsp;
 
@@ -68,7 +68,7 @@ React.js 만으로 애플리케이션을 개발하면 보통 이를 SPA(Single P
 
 &nbsp;
 
-![1.00](/assets/blog/Next_js-Rendering/React.jpg)
+![1.00](/assets/blog/NextJs-Rendering/React.jpg)
 
 &nbsp;
 
