@@ -6,10 +6,8 @@ export default function robots(): MetadataRoute.Robots {
             userAgent: '*',
             allow: '/',
             disallow: [
-                '/api/',
-                '/_not-found',
-                '/api/search',
-                '/api/updateImage',
+                '/api/*',
+                '/_not-found'
             ],
         },
         sitemap: '',
