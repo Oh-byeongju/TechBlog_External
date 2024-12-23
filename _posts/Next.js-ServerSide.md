@@ -8,7 +8,7 @@ description: >+
   slug 사용에 따른 성능 최적화 방법도 언급됩니다. 
 
 thumbnail: >-
-  /assets/blog/Nextjs-ServerSide/Rendering.png
+  /assets/blog/NextJs-ServerSide/Rendering.png
 keywords: 'NEXTjs, SSR, SSG, ISR, 서버사이드렌더링, 프론트엔드개발, 웹개발, API'
 author: obj98@sjinc.co.kr
 datePublished: '2024-12-23 16:40:03'
@@ -26,7 +26,7 @@ dateModified: '2024-12-23 16:40:03'
 
 * 문서를 정독하기전 먼저 NEXT.js의 렌더링 방식을 이해하시고, 아래의 사진을 참고하시면서 문서를 읽어주시면 감사하겠습니다.
 
-![1.00](/assets/blog/Nextjs-ServerSide/Rendering.png)
+![1.00](/assets/blog/NextJs-ServerSide/Rendering.png)
 
 &nbsp;
 
