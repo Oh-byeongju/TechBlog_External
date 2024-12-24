@@ -10,7 +10,7 @@ import Blank from "@/components/blank/Blank";
 import styles from './RowPost.module.scss';
 
 const RowPost = ({postData}: {postData: IPostData}) => {
-    const actionAndNavigate = useActionAndNavigate();
+    const actionAndNavigate = useActionAndNavigate(`/board/${postData.slug}`);
     const onClick = () => actionAndNavigate.actionAndNavigate(`/board/${postData.slug}`)
 
     return (
