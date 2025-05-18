@@ -15,14 +15,14 @@ datePublished: '2024-12-23 16:40:03'
 dateModified: '2024-12-23 16:40:03'
 ---
 
-#### ※ NEXT.js의 서버 사이드 렌더링 기법(SSG, ISR, SSR)에 대한 적절한 사용 방법
+#### **※ NEXT.js의 서버 사이드 렌더링 기법(SSG, ISR, SSR)에 대한 적절한 사용 방법**
 
 * 이 문서는 **NEXT.js 14버전의 app router**를 기준으로 작성하였으며, 페이지 갱신에 의한 렌더링인 SSG, ISR, SSR 즉 서버사이드 렌더링 기법에 대한 자세한 내용을 작성해둔 문서입니다.
 * CSR(Client Side Rendering) 같은 경우 Next.js의 핵심 기법이 아닌 SPA(Single Page Application)의 핵심 개념이고 서버가 아닌 클라이언트에게 렌더링을 전가하는 방식이기 때문에 컴포넌트만 분리하여 사용하면 SSG, ISR, SSR 페이지 및 컴포넌트에 영향을 주지 않습니다.
 
 &nbsp;
 
-### ※ 렌더링 로드맵
+#### **※ 렌더링 로드맵**
 
 * 문서를 정독하기전 먼저 NEXT.js의 렌더링 방식을 이해하시고, 아래의 사진을 참고하시면서 문서를 읽어주시면 감사하겠습니다.
 
@@ -34,20 +34,19 @@ dateModified: '2024-12-23 16:40:03'
 
   * layout.tsx에 할당되는 값의 경우 라우터를 이용하여 페이지를 이동할 때 변경이 안되는 값입니다.
   * 페이지에서 전역으로 사용하는 상태관리 함수, 팝업 화면, 특정 컴포넌트(TopButton, Footer) 등을 layout.tsx에 서버 사이드 개념으로 할당합니다.
-
-    * 만약 Recoil과 같은 클라이언트 사이드 개념인 요소를 사용하려는 경우 Wrapper를 사용하여 서버사이드 개념으로 변환이 필요합니다.
-    * 참고 : [![](https://static.velog.io/favicons/favicon-16x16.png)\[Next.js\] Recoil 적용하기.](https://velog.io/@khakisage/Next.js-Recoil-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
+  * 만약 Recoil과 같은 클라이언트 사이드 개념인 요소를 사용하려는 경우 Wrapper를 사용하여 서버사이드 개념으로 변환이 필요합니다.
+  * 참고 : [![](https://static.velog.io/favicons/favicon-16x16.png)\[Next.js\] Recoil 적용하기.](https://velog.io/@khakisage/Next.js-Recoil-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
   * **결론 : 'use client'를 사용한 클라이언트 사이드 개념을 사용하는 것은 layout.tsx 에서는 삼가해야 합니다.**
 
 &nbsp;
 
-### ※ 구현 시 참고사항
+#### **※ 구현 시 참고사항**
 
-1. Fetch 옵션
+* Fetch 옵션
 
-   1. SSG : { cache: 'force-cache' })
-   2. ISR : { next: { revalidate: 3600 }});
-   3. SSR : { cache: 'no-store' });
+   * SSG : { cache: 'force-cache' })
+   * ISR : { next: { revalidate: 3600 }});
+   * SSR : { cache: 'no-store' });
 
 &nbsp;
 
@@ -64,8 +63,8 @@ dateModified: '2024-12-23 16:40:03'
   * NEXT.js는 빌드를 실행하는 경우 .next 디렉토리가 생성됩니다. 해당 디렉토리에 페이지 렌더링 시 필요한 데이터가 들어가 있습니다.
   * 빌드 실행 시 .next 디렉토리를 삭제 안하고 빌드를 진행하면 SSG에 해당하는 부분이 갱신이 안되는 이슈가 있을수도 있습니다.
 
-    * .next 디렉토리 삭제 X : SSG 갱신안됨, ISR, SSR 갱신됨
-    * .next 디렉토리 삭제 O : SSG, ISR, SSR 모두 갱신
+    * **.next 디렉토리 삭제 X : SSG 갱신안됨, ISR, SSR 갱신됨**
+    * **.next 디렉토리 삭제 O : SSG, ISR, SSR 모두 갱신**
   * 프로젝트를 기준으로 보았을 때 SSG로 구현된 부분이 극히 드물것으로 예상되나 디렉토리 제거 없이 빌드하는 경우 제대로된 배포가 이루어지지 않을 수 있기 때문에 유의하셔야 합니다.
   * 디렉토리 제거에 대한 반감이 있을 경우, ISR을 사용하여 revalidate 시간을 엄청 길게 잡으면 SSG과 비슷한 기능을 구현 가능할 것으로도 예상됩니다.
 
@@ -124,18 +123,17 @@ dateModified: '2024-12-23 16:40:03'
 * NEXT.js의 페이지 별 렌더링&#x20;
 
   * 만약 page.tsx에서 SSR 요소 및 컴포넌트 등을 사용하는 경우 캐시에 대한 오류메시지가 출력될 수 있습니다.
-
-    1. 이런 경우 page.tsx 최상단에 export const dynamic = "force-dynamic"를 적어주면 해당 페이지는 항상 캐시를 무시하기 때문에 이슈가 사라집니다. (동적 페이지로 인정)
-    2. [![](https://nextjs.org/favicon.ico)File Conventions: Route Segment Config](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config) 문서 참고
-    3. SSR 요소를 사용한다는 것으로 페이지 내 정적인 요소는 그대로 있으나 동적인 요소는 바뀔 수 있다는 것을 명시해주기 위한 코드로 이해 바랍니다.
+  * 이런 경우 page.tsx 최상단에 export const dynamic = "force-dynamic"를 적어주면 해당 페이지는 항상 캐시를 무시하기 때문에 이슈가 사라집니다. (동적 페이지로 인정)
+  * [![](https://nextjs.org/favicon.ico)File Conventions: Route Segment Config](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config) 문서 참고
+  * SSR 요소를 사용한다는 것으로 페이지 내 정적인 요소는 그대로 있으나 동적인 요소는 바뀔 수 있다는 것을 명시해주기 위한 코드로 이해 바랍니다.
 
 &nbsp;
 
 * 빌드된 .next > server > app 디렉토리를 확인하였을 때, page.tsx URL을 기준으로 html 파일이 있으면 SSG와 ISR로만 구현된 정적 페이지이고, page.js만 존재한다면 항상 페이지를 만들어내는 동적 페이지라고 판단할 수 있습니다.
 
-  1. 이 내용은 빌드 타임에 나오는 로그에서도 확인이 가능합니다.
+  * 이 내용은 빌드 타임에 나오는 로그에서도 확인이 가능합니다.
 
-  ```
+  ```TypeScript
   Route (app)               Size     First Load JS
     ├ ○ /                     1.41 kB  95.2 kB
     ├ ○ /_not-found            871 B    87.9 kB
@@ -159,7 +157,7 @@ dateModified: '2024-12-23 16:40:03'
 * 당연하게도 사용자가 페이지를 요청할 때 사전에 생성된 html을 그대로 준다고 가정하면 사용자 입장에서 더 빠르게 페이지를 볼 수 있습니다.
 
   1. SSG와 ISR로만 구현된 경우 : 사용자 Request > 노드서버에서 사전에 만들어둔 html Response
-  2. SSR 요소가 들어간 경우 :\*\*\*\* 사용자 Request > 노드서버에서 자바스크립트 파일을 기준으로 html 생성(이 과정에서 API 요청을 할수도 있고 노드 자원을 사용하기도 함) > html Response
+  2. SSR 요소가 들어간 경우 : 사용자 Request > 노드서버에서 자바스크립트 파일을 기준으로 html 생성(이 과정에서 API 요청을 할수도 있고 노드 자원을 사용하기도 함) > html Response
 
 &nbsp;
 * **여기서 가장 중요한 내용은 page.tsx 파일 내부의 SSR 요소가 단 하나라도 존재하는 경우 정적 html을 Response 해주는 것이 아닌 동적 페이지를 생성하여 Response 해준다는 것입니다.**
@@ -184,8 +182,6 @@ dateModified: '2024-12-23 16:40:03'
 
 * slug를 사용한 동적 라우팅
 
-  * NEXT.js 에서 slug를 사용하여 동적 라우팅을 구현하는 경우 해당 페이지는 무조건 동적 페이지로 구성되어 요청마다 새롭게 페이지를 생성하는 개념이 됩니다.
-  * 동적 페이지로 구성되어 있어 퍼포먼스가 떨어 질 것으로 예상되지만 NEXT.js에서 빌드 타임 때 정적요소는 하드 타이핑된 고정값으로 설정해주기 때문에 퍼포먼스 저하가 적습니다.
-  * **다만, slug를 사용하였을 때 페이지 자체를 정적 페이지로 구성하고 싶다면 generateStaticParams을 사용하여 빌드 타임 때 보여주고 싶은 정적 페이지를 모두 생성해야 합니다. (이 방법은 추후 외부 사용자가 접근하여 블로그 포스팅을 조회할 때 사용될 기법입니다.)**
-
-&nbsp;
+  1. NEXT.js 에서 slug를 사용하여 동적 라우팅을 구현하는 경우 해당 페이지는 무조건 동적 페이지로 구성되어 요청마다 새롭게 페이지를 생성하는 개념이 됩니다.
+  2. 동적 페이지로 구성되어 있어 퍼포먼스가 떨어 질 것으로 예상되지만 NEXT.js에서 빌드 타임 때 정적요소는 하드 타이핑된 고정값으로 설정해주기 때문에 퍼포먼스 저하가 적습니다.
+  3. **다만, slug를 사용하였을 때 페이지 자체를 정적 페이지로 구성하고 싶다면 generateStaticParams을 사용하여 빌드 타임 때 보여주고 싶은 정적 페이지를 모두 생성해야 합니다. (이 방법은 추후 외부 사용자가 접근하여 블로그 포스팅을 조회할 때 사용될 기법입니다.)**
