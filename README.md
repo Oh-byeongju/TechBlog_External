@@ -1,3 +1,3 @@
 ## Deploy on Vercel
 
-https://sjtb.vercel.app/
+https://tech-blog-external.vercel.app/
