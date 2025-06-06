@@ -12,8 +12,8 @@ export const userName = {
 export const profileCont = {
     'admin': '관리자 계정입니다.',
     '123@123.com': '관리자 계정입니다.',
-    'obj98@sjinc.co.kr': '개발 3팀 오병주 사원',
-    'kjsa@sjinc.co.kr': '세정아이앤씨 개발3팀',
+    'obj98@sjinc.co.kr': '오병주 사원',
+    'kjsa@sjinc.co.kr': '개발자',
     'dade@naver.com': '카피바라 페이스트바라'
 } as const;
 

@@ -30,7 +30,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     const post = getPostBySlug(params.slug)
     if (!post) return {};
     const metadata: IMetadata = {
-        title: `${post.title} - 세정아이앤씨 기술 블로그`,
+        title: `${post.title} - 기술 블로그`,
         description: post.description,
         keywords: post.keywords,
         baseUrl: META.baseUrl,
@@ -42,8 +42,6 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 export async function generateStaticParams() {
     return getParamSlugs();
 }
-// 스크롤 제어 생각해보기
-// https://velog.io/@seesaw/Next.js%EC%97%90%EC%84%9C-%EC%8A%A4%ED%81%AC%EB%A1%A4-%EC%9C%84%EC%B9%98-%EC%9C%A0%EC%A7%80%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-Scroll-Restoration
 
 const Post = (props: Props) => {
     const post: IPostData | undefined = getPostBySlug(props.params.slug);

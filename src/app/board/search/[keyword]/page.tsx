@@ -22,13 +22,13 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     const decodedKeyword = decodeURIComponent(params.keyword);
 
     const searchMeta: IMetadata = {
-        title: `${decodedKeyword} - 세정아이앤씨 기술 블로그 `,
+        title: `${decodedKeyword} - 기술 블로그 `,
         description:
-            `${decodedKeyword} - 세정아이앤씨 기술 블로그의 검색 결과입니다.`,
+            `${decodedKeyword} - 기술 블로그의 검색 결과입니다.`,
         keywords: [
             decodedKeyword,
-            '세정아이앤씨',
-            'SJINC',
+            '개발자 지식',
+            '코딩 지식',
             '기술블로그',
             'TechBlog',
         ],
