@@ -6,20 +6,18 @@
 
     <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/3eb59290-0f6c-4c3e-a135-3400dfe25b98"/>
 
-- 현재는 프로토타입 단계로, 백엔드는 별도로 구현하지 않았습니다.
-    - 외부 노출만을 목적으로 하기 때문에 Spring 기반 백엔드는 필요하지 않다고 판단했습니다.
-    - Vercel을 활용해 Next.js를 배포하여 손쉽게 배포 및 운영할 수 있도록 구성했습니다.
-    - 추후 백엔드 기능이 필요해질 경우, Next.js App Router에 포함된 API Route를 활용해 개발을 진행할 예정입니다.
+- 프로토타입 단계로, 백엔드는 구현하지 않았습니다.
+- Vercel을 활용해 Next.js를 배포하여 운영할 수 있도록 구성했습니다.
+- 추후 백엔드 기능이 필요해질 경우, Next.js App Router에 포함된 API Route를 활용해 개발을 진행할 예정입니다.
 - **해당 프로젝트는 외부 사용자를 위한 서비스로**, 블로그 게시물의 조회와 검색 기능만 제공하도록 구성되어 있습니다.
     
     <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/33166100-f9e2-402f-b23f-b9a982693830"/>
     
-- 외부 사용자용 프로젝트 정보는 를 참고해주세요.
 - 내부 사용자용 프로젝트 정보는 기술 블로그 [기술블로그 (내부 사용자)](https://github.com/Oh-byeongju/TechBlog_Internal)를 참고해주세요.
 ### **2. 개발 기간**
 - 2024.12.01 ~ 2024.12.31
 ### **3. Deploy on Vercel**
-- https://tech-blog-external.vercel.app/
+- https://tech-blog-external.vercel.app
 
 ---
 ## 아래부터 수정 진행 (ing)
