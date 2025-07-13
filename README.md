@@ -9,18 +9,15 @@
 - 프로토타입 단계로, 백엔드는 구현하지 않았습니다.
 - Vercel을 활용해 Next.js를 배포하여 운영할 수 있도록 구성했습니다.
 - 추후 백엔드 기능이 필요해질 경우, Next.js App Router에 포함된 API Route를 활용해 개발을 진행할 예정입니다.
-- **해당 프로젝트는 외부 사용자를 위한 서비스로**, 블로그 게시물의 조회와 검색 기능만 제공하도록 구성되어 있습니다.
+- **해당 프로젝트는 외부 사용자를 위한 서비스로**, 블로그 게시물의 조회 및 검색 기능만을 제공합니다.
     
     <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/33166100-f9e2-402f-b23f-b9a982693830"/>
     
-- 내부 사용자용 프로젝트 정보는 기술 블로그 [기술블로그 (내부 사용자)](https://github.com/Oh-byeongju/TechBlog_Internal)를 참고해주세요.
+- 내부 사용자용 프로젝트 정보는 [기술블로그 (내부 사용자)](https://github.com/Oh-byeongju/TechBlog_Internal)를 참고해주세요.
 ### **2. 개발 기간**
 - 2024.12.01 ~ 2024.12.31
 ### **3. Deploy on Vercel**
 - https://tech-blog-external.vercel.app
-
----
-## 아래부터 수정 진행 (ing)
 
 ## **2. 기술 및 도구**
 
@@ -31,26 +28,13 @@
 - Axios
 - Recoil
 - React Query
-### `Backend`
-- Java 11
-- Spring Boot 2.7.3
-- Spring Data JPA
-- Spring Security
-- PostgreSQL
-- JWT
-### `Library / API`
-- OpenAI
+### `Library / Deploy`
 - Milkdown Editor
 - Unsplash
-### `Design Tools`
-- Figma
-- Confluence
-- ERDCloud
-  
-## **3. ERD 설계**
+- Vercel
 
-<img width="100%" alt="ERD" src="https://github.com/user-attachments/assets/1b6b2a81-91b5-479c-a7cd-f8b98c1b0650"/>
-
+---
+## 아래부터 수정 진행 (ing)
 ## **4. 시스템 아키텍처**
 
 <img width="80%" alt="System" src="https://github.com/user-attachments/assets/19bd741a-e8a1-4788-96d5-a36a5dc29991"/>
