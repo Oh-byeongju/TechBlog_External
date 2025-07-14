@@ -13,7 +13,7 @@
     
     <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/33166100-f9e2-402f-b23f-b9a982693830"/>
     
-- 내부 사용자용 프로젝트 정보는 [기술블로그 (내부 사용자)](https://github.com/Oh-byeongju/TechBlog_Internal)를 참고해주세요.
+- 내부 사용자용 프로젝트 정보는 [기술 블로그 (내부 사용자)](https://github.com/Oh-byeongju/TechBlog_Internal)를 참고해주세요.
 ### **2. 개발 기간**
 - 2024.12.01 ~ 2024.12.31
 ### **3. Deploy on Vercel**
@@ -33,13 +33,12 @@
 - Unsplash
 - Vercel
 
----
-## 아래부터 수정 진행 (ing)
-## **4. 시스템 아키텍처**
+## **3. 시스템 아키텍처**
 
-<img width="80%" alt="System" src="https://github.com/user-attachments/assets/19bd741a-e8a1-4788-96d5-a36a5dc29991"/>
+<img width="80%" alt="System" src="https://github.com/user-attachments/assets/2adf9b88-03c2-4304-abbd-e79ce2e12fdb"/>
 
 &nbsp;&nbsp;
+## 이미지 까진 추가된 상태 (수정 진행)
 
 1. 사용자가 Web 또는 Mobile Web 환경(`Chrome`, `Edge` 등)에서 URL에 접속하면, 브라우저는 `Next.js` 기반 프론트엔드 서버로 요청을 보냅니다.
 2. 프론트엔드 서버는 `Node.js` 런타임 위에서 작동하며, `TypeScript`와 `React` 기반의 `Next.js (App Router)`를 통해  HTML을 생성합니다. 이 과정에서 필요한 데이터는 Axios를 통해 백엔드 API로 요청됩니다.
@@ -57,30 +56,22 @@
 
 ```tsx
 Route (app)                              Size     First Load JS
-┌ ○ /                                    3.83 kB         160 kB
+┌ ○ /                                    2.94 kB         157 kB
 ├ ○ /_not-found                          883 B          90.3 kB
-├ ƒ /api/allPost                         0 B                0 B
-├ ƒ /api/createPost                      0 B                0 B
-├ ƒ /api/deletePost                      0 B                0 B
-├ ƒ /api/getPostBySlug                   0 B                0 B
-├ ƒ /api/popPost                         0 B                0 B
 ├ ƒ /api/search                          0 B                0 B
-├ ƒ /api/signEdit                        0 B                0 B
-├ ƒ /api/signIn                          0 B                0 B
-├ ƒ /api/signUp                          0 B                0 B
 ├ ƒ /api/updateImage                     0 B                0 B
-├ ƒ /board/[slug]                        7.72 kB         300 kB
-├ ƒ /board/[slug]/edit                   1.05 kB         293 kB
-├ ○ /board/new                           3.07 kB         261 kB
-└ ƒ /board/search/[keyword]              3.11 kB         159 kB
-
-- First Load JS shared by all 89.5 kB
-├ chunks/2117-1e97556394822c23.js 31.7 kB
-├ chunks/fd9d1056-cd655eb3e6ad1550.js 53.7 kB
-└ other shared chunks (total) 4.06 kB
+├ ● /board/[slug]                        147 kB          295 kB
+├ ƒ /board/search/[keyword]              2.27 kB         156 kB
+└ ○ /robots.txt                          0 B                0 B
++ First Load JS shared by all            89.4 kB
+  ├ chunks/2117-4eac37192429b8c1.js      31.7 kB
+  ├ chunks/fd9d1056-11ef1f382a39fa9a.js  53.7 kB
+  └ other shared chunks (total)          4.04 kB
 
 ƒ Middleware                             27 kB
+
 ○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses getStaticProps)
 ƒ  (Dynamic)  server-rendered on demand
 ```
 
