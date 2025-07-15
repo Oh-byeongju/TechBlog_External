@@ -48,17 +48,23 @@
 ```tsx
 // 게시물의 SSG 페이지 생성 로직
 export async function generateStaticParams() {
-	return getParamSlugs();
+  return getParamSlugs();
 }
 
 export function getParamSlugs(): string[] {
   // 디렉토리 내 파일 목록을 읽어 slug 생성
   const fileNames = fs.readdirSync(postsDirectory);
   return fileNames.map(file =>
-	    path.basename(file, path.extname(file))
+    path.basename(file, path.extname(file))
   );
 }
 ```
+### 4. 사용자 접근
+- 방문자는 미리 생성된 정적 HTML 페이지를 빠르게 로딩할 수 있습니다.
+- 초기 로딩이 빠르며, 검색 엔진에 최적화된 메타 정보를 제공합니다.
+### 5. SEO 및 퍼포먼스 확보
+- SSG를 활용해 검색엔진 노출(SEO)과 사용자 경험(UX) 모두 개선합니다.
+- 배포 프로세스는 GitHub 커밋만으로 자동화되어 관리가 간결합니다.
 
 ## 5. 렌더링 구조 및 핵심 기능
 
