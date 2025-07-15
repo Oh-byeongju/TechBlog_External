@@ -2,7 +2,7 @@
 
 ### **1. 프로젝트 소개**
 - 내부 블로그에서 작성된 게시물을 외부에 노출하기 위해 기획한 프로젝트입니다.
-- Next.js의 **SSG**, **CSR, ISR** 렌더링 기법만을 활용하여 개발을 진행하였습니다.
+- 상황에 따라 Next.js의 다양한 렌더링 기법(**SSR, CSR, SSG, ISR**)을 적절히 활용하여 개발을 진행하였습니다.
 
     <img width="100%" alt="Service" src="https://github.com/user-attachments/assets/3eb59290-0f6c-4c3e-a135-3400dfe25b98"/>
 
