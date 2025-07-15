@@ -37,14 +37,28 @@
 
 <img width="80%" alt="System" src="https://github.com/user-attachments/assets/2adf9b88-03c2-4304-abbd-e79ce2e12fdb"/>
 
-&nbsp;&nbsp;
-## 이미지 까진 추가된 상태 (수정 진행)
+### 1. 게시물 및 코드 수정
+- 개발자가 게시물의 Markdown 파일 또는 소스 코드를 GitHub 저장소에 푸시합니다.
+### 2. 자동 배포 트리거
+- GitHub에 변경사항이 감지되면 Vercel이 자동으로 빌드 및 배포를 수행합니다.
+### 3. 프로젝트 빌드
+- Next.js 14의 App Router를 사용해 게시물 페이지를 **정적 HTML로 사전 렌더링**합니다.
+- `generateStaticParams()` 함수를 통해 게시물 경로(slug)를 미리 생성하고, 필요한 정적 파일을 생성합니다.
+- 빌드가 완료되면 HTML 파일이 Vercel CDN에 배포되어, 사용자가 페이지에 접근할 때 정적 페이지를 전달합니다.
+```tsx
+// 게시물의 SSG 페이지 생성 로직
+export async function generateStaticParams() {
+	return getParamSlugs();
+}
 
-1. 사용자가 Web 또는 Mobile Web 환경(`Chrome`, `Edge` 등)에서 URL에 접속하면, 브라우저는 `Next.js` 기반 프론트엔드 서버로 요청을 보냅니다.
-2. 프론트엔드 서버는 `Node.js` 런타임 위에서 작동하며, `TypeScript`와 `React` 기반의 `Next.js (App Router)`를 통해  HTML을 생성합니다. 이 과정에서 필요한 데이터는 Axios를 통해 백엔드 API로 요청됩니다.
-3. 백엔드는 `Spring Boot` 서버로 구성되어 있으며, `Apache Tomcat`을 통해 HTTP 요청을 수신합니다. 프론트엔드에서 전달된 API 요청은 Spring MVC, Spring Security를 거쳐 처리됩니다.
-4. 필요한 데이터는 `Spring Data JPA`를 통해 `PostgreSQL` 데이터베이스에서 조회되며, 비즈니스 로직에 따라 가공된 결과가 다시 프론트엔드로 전달됩니다.
-5. 사용자의 요청 중 일부는 `OpenAI API`와 통신해야 할 수도 있습니다. 예를 들어, **GPT 기반의 텍스트 요약 또는 자동 생성 기능** 등이 이에 해당하며, 백엔드는 외부 `OpenAI` 서버에 HTTP 요청을 보내 응답을 받은 뒤 이를 프론트엔드에 반환합니다.
+export function getParamSlugs(): string[] {
+  // 디렉토리 내 파일 목록을 읽어 slug 생성
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames.map(file =>
+	    path.basename(file, path.extname(file))
+  );
+}
+```
 
 ## 5. 렌더링 구조 및 핵심 기능
 
