@@ -95,18 +95,109 @@ Route (app)                              Size     First Load JS
 ƒ  (Dynamic)  server-rendered on demand
 ```
 
+### 2. 메타데이터 생성
+
+- 페이지별로 메타 태그(`title`, `description`, `keywords`, `og:image` 등)를 생성하였습니다.
+
+```tsx
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const post = getPostBySlug(params.slug);
+  if (!post) return {};
+
+  const metadata: IMetadata = {
+    title: `${post.title} - 기술 블로그`,
+    description: post.description,
+    keywords: post.keywords,
+    baseUrl: META.baseUrl,
+    pageUrl: `/board/${params.slug}`,
+    ogImage: post.thumbnail,
+  };
+
+  return getMetadata(metadata);
+}
+```
+
+### 3. robots.txt 자동 생성
+
+- `robots.ts` 파일을 작성하면 빌드 시 자동으로 `robots.txt`를 생성합니다. 이를 통해 검색 엔진 크롤러에 대한 노출 범위를 효과적으로 제어하였습니다.
+
+```tsx
+// app/robots.ts
+import { MetadataRoute } from 'next';
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: [
+        '/api/*',
+        '/_not-found'
+      ],
+    },
+    sitemap: '',
+  };
+}
+```
+
+### 4. JSON-LD (**구조화 데이터 마크업)**
+
+- 검색 엔진에 구조화된 데이터를 제공하기 위해 게시물 상세 페이지에 `ld+json` 스크립트를 삽입하여, 검색 결과에 더 많은 정보가 표시되도록 했습니다.
+
+```tsx
+// 페이지 컴포넌트 내부
+const jsonLd = getLdJsonArticle({
+  id: `${META.baseUrl}/board/${post.slug}`,
+  headline: post.title,
+  image: [post.thumbnail],
+  datePublished: post.datePublished,
+  dateModified: post.dateModified,
+  author: { name: post.author, url: '' },
+  keywords: post.keywords,
+});
+
+return (
+  <>
+    {/* 기타 콘텐츠 */}
+    <Scriptid="json-ld"
+      type="application/ld+json"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+    {/* 기타 콘텐츠 */}
+  </>
+);
+```
+
+### 5. 라우터 Prefetch 적용
+
+- `router.prefetch()`를 활용해 백그라운드에서 데이터를 미리 로드하도록 하였으며, 이를 통해 페이지 전환 시 부드럽게 이동할 수 있도록 구현했습니다.
+
+```tsx
+// hooks/useActionAndNavigate.ts
+const useActionAndNavigate = (routeUrl?: string) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof routeUrl === 'string') {
+      router.prefetch(routeUrl);
+    }
+  }, [router, routeUrl]);
+
+  const actionAndNavigate = () => {
+    if (routeUrl) router.push(routeUrl);
+  };
+
+  return { actionAndNavigate };
+};
+
+export default useActionAndNavigate;
+```
+
+
 ## 아래부터 수정 필요
 ----
 ----
-----
-## 5. 렌더링 구조 및 핵심 기능
-
-### 2. 핵심 기능
-
-- 반응형 웹과 다크 모드를 포함하여, 사용자 경험(UX)을 향상시킬 수 있는 기능을 제공합니다.
-- 게시물 작성 시, OpenAI API를 활용하여 내용을 자동 요약하고 관련 해시태그를 생성한 뒤, 이를 메타데이터와 함께 저장합니다.
-- 게시물은 `.md` 형식으로 저장되며, 상단에 메타 정보를 포함해 검색, 조회, 렌더링 등 다양한 용도로 효율적으로 활용됩니다.
-
 ## 6. 사용자 요청 흐름
 
 <div align="center">
