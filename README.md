@@ -194,6 +194,29 @@ const useActionAndNavigate = (routeUrl?: string) => {
 export default useActionAndNavigate;
 ```
 
+## 5. 게시물/사용자 관리 가이드
+
+- 현재 프로젝트는 **프로토타입 단계**이므로, 게시물/사용자 관리를 `enum` 또는 직접 파일을 추가하는 방식으로 처리합니다.
+- 아래의 내용은 등록 절차이며, 추후 자동화 개발 과제로 개선할 예정입니다.
+
+### 1. 파일 경로
+
+- `_post`: 전체 게시글 파일 경로
+- `_popPosts`: 인기 게시글 파일 경로
+- `public/profile`: 사용자 프로필 사진 경로
+- `public/asset/blog/{게시물이름}`: 게시물 이미지 경로
+
+### 2. 사용자 관리
+
+1. `user-enum.ts` 파일에서 사용자 정보를 추가하거나 수정합니다.
+2. 프로필 사진이 필요한 경우 `public/profile`에 이미지를 추가합니다.
+3. `enum`에 아래 정보를 기입합니다.
+    
+    **userName**: 사용자 이름
+
+    **profileCont**: 프로필 설명
+    
+    **profilePicPath**: 프로필 사진 경로
 
 ## 아래부터 수정 필요
 ----
