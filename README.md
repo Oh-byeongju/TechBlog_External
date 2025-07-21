@@ -211,9 +211,22 @@ export default useActionAndNavigate;
 1. `user-enum.ts` 파일에서 사용자 정보를 추가하거나 수정합니다.
 2. 프로필 사진이 필요한 경우 `public/profile`에 이미지를 추가합니다.
 3. `enum`에 아래 정보를 기입합니다.
-- **userName**: 사용자 이름
-- **profileCont**: 프로필 설명
-- **profilePicPath**: 프로필 사진 경로
+    - **userName**: 사용자 이름
+    - **profileCont**: 프로필 설명
+    - **profilePicPath**: 프로필 사진 경로
+
+### 3. 전체 게시글 등록
+
+1. 내부 프로젝트에서 작성한 Markdown 파일과 사용된 이미지를 가져옵니다.
+2. Markdown 파일명은 URL에 사용되므로 적절히 수정합니다.
+    - `Cloud-Service.md` → `https://tech-blog-external.vercel.app/board/Cloud-Service`
+3. 새로운 파일명으로 된 Markdown 파일을 `_post` 경로에 추가합니다.
+4. `public/asset/blog/{게시물이름}` 디렉토리를 생성합니다.
+5. 게시물에 사용된 이미지를 적절한 이름으로 변경한 뒤, 해당 디렉토리로 이관합니다.
+6. Markdown 파일 내부를 수정합니다.
+    - **thumbnail**: 게시물 썸네일 경로
+    - **author**: 작성자 이메일 (작성자 정보 조회에 사용)
+    - **image**: 경로를 `asset`부터 작성 → `(/assets/blog/Cloud-Infra/Cloud.jpg)`
 
 ## 아래부터 수정 필요
 
