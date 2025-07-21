@@ -97,7 +97,7 @@ Route (app)                              Size     First Load JS
 
 ### 2. 메타데이터 생성
 
-- 페이지별로 메타 태그(`title`, `description`, `keywords`, `og:image` 등)를 생성하였습니다.
+- 페이지별로 메타 태그(`title`, `description`, `keywords`, `ogImage` 등)를 생성하였습니다.
 
 ```tsx
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
